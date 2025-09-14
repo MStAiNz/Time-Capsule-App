@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h2>{{ capsule.title }}</h2>
+  
+  <p>This capsule is still locked.</p>
+  <p><strong>Opens on:</strong> {{ capsule.release_date|date:"Y-m-d H:i" }}</p>
+  <p><a href="{% url 'capsule:my_capsules' %}">Back</a></p>
+
+{% endblock %}

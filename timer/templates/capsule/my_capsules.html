@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h2>My Capsules</h2>
+
+  {% if capsules %}
+    <ul>
+      {% for c in capsules %}
+        <li>
+          <strong><a href="{% url 'capsule:view_capsule' c.pk %}">{{ c.title }}</a></strong>
+          — Release: {{ c.release_date|date:"Y-m-d H:i" }}
+          {% if c.can_be_opened %}
+            <span style="color:green">Unlocked</span>
+          {% else %}
+            <span style="color:orange">Locked</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You have no capsules yet. <a href="{% url 'capsule:create_capsule' %}">Create one</a>.</p>
+  {% endif %}
+  
+{% endblock %}

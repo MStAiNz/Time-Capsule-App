@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Create a Time Capsule</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Capsule</button>
+  </form>
+  <p><a href="{% url 'capsule:my_capsules' %}">Back to my capsules</a></p>
+{% endblock %}

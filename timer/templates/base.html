@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Time Capsule</title>
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+  <header>
+    <h1><a href="{% url 'capsule:my_capsules' %}">Time Capsule</a></h1>
+    <nav>
+      {% if user.is_authenticated %}
+        <span>Hi, {{ user.username }}</span> |
+        <a href="{% url 'capsule:create_capsule' %}">Create Capsule</a> |
+        <a href="{% url 'capsule:my_capsules' %}">My Capsules</a> |
+        <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a> |
+        <a href="{% url 'signup' %}">Sign up</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <small>Time Capsule App</small>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h2>{{ capsule.title }}</h2>
+  
+  <p><strong>Created:</strong> {{ capsule.created_at|date:"Y-m-d H:i" }}</p>
+  <p><strong>Release date:</strong> {{ capsule.release_date|date:"Y-m-d H:i" }}</p>
+
+  <article>
+    <p>{{ capsule.message|linebreaks }}</p>
+  </article>
+
+  {% if capsule.file %}
+    <p><strong>Attachment:</strong>
+      <a href="{{ capsule.file.url }}" download>Download file</a>
+    </p>
+  {% endif %}
+
+  <p><a href="{% url 'capsule:my_capsules' %}">Back</a></p>
+
+{% endblock %}

@@ -15,8 +15,32 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from .views import RegisterView, VerifyEmailView
+from .views import PasswordResetRequestView, PasswordResetConfirmView
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import RedirectView
+from capsules import views as capsule_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('verify/<str:token>/', VerifyEmailView.as_view(), name='verify-email'),
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("reset/", PasswordResetRequestView.as_view(), name="password-reset-request"),
+    path("reset/<str:uid>/<str:token>/", PasswordResetConfirmView.as_view(), name="password-reset-confirm"),
+    path('api/', include('capsules.urls')),
+    path("capsules/", include("capsules.urls", namespace="capsule")),
+    path("", RedirectView.as_view(url="/capsules/my/")),  # optional home redirect
+    path("accounts/", include("django.contrib.auth.urls")),  # login/logout/password reset
+    path('signup/', capsule_views.signup, name='signup'), # existing urlpatterns...
+    path("accounts/", include("django.contrib.auth.urls")), # keep accounts/ for login/logout
+    path('login/', capsule_views.login, name='login'),
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -37,7 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'capsules',
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication"
+    )
+}
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +61,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'timer.urls'
+
+# Media (file uploads)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 TEMPLATES = [
     {
@@ -65,6 +80,9 @@ TEMPLATES = [
         },
     },
 ]
+
+# Templates: ensure DIRS includes BASE_DIR / 'templates' if you want project-level templates
+TEMPLATES[0]['DIRS'] = [ BASE_DIR / "templates" ]
 
 WSGI_APPLICATION = 'timer.wsgi.application'
 
@@ -85,7 +103,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'time_capsule_db',
-        'USER': 'dan',
+        'USER': 'postgres',
         'PASSWORD': 'Str@nger12',
         'HOST': 'localhost',
         'PORT': '5432'        
