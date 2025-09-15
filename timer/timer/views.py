@@ -8,6 +8,11 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate
+import requests
+from django.conf import settings
+
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -35,6 +40,8 @@ class RegisterView(generics.CreateAPIView):
         else:
             form = RegisterSerializer()
         return render(request, "registration/signup.html", {"form": form})
+    
+
        
 class VerifyEmailView(generics.GenericAPIView):
     permission_classes = [permissions.AllowAny]

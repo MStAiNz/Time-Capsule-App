@@ -10,7 +10,7 @@ class CapsuleForm(forms.ModelForm):
 
     class Meta:
         model = Capsule
-        fields = ["title", "message", "file", "release_date"]
+        fields = ["title", "message", "file", "release_date", "is_public"]
 
     def clean_release_date(self):
         dt = self.cleaned_data["release_date"]

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>📦 My Capsule Dashboard</h2>
+
+  <!-- Filter Buttons -->
+  <div class="btn-group mb-3">
+    <a href="?filter=all" class="btn btn-secondary {% if filter_by == 'all' %}active{% endif %}">All</a>
+    <a href="?filter=upcoming" class="btn btn-secondary {% if filter_by == 'upcoming' %}active{% endif %}">Upcoming</a>
+    <a href="?filter=released" class="btn btn-secondary {% if filter_by == 'released' %}active{% endif %}">Released</a>
+    <a href="?filter=public" class="btn btn-secondary {% if filter_by == 'public' %}active{% endif %}">Public</a>
+  </div>
+
+  <!-- Capsules List -->
+  {% if capsules %}
+    <ul class="list-group">
+      {% for capsule in capsules %}
+        <li class="list-group-item">
+          <h5>{{ capsule.title }}</h5>
+          <p>{{ capsule.description|truncatewords:20 }}</p>
+          <small>
+            Release: {{ capsule.release_date }} |
+            {% if capsule.is_public %} 🌍 Public {% else %} 🔒 Private {% endif %}
+          </small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No capsules found for this filter.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

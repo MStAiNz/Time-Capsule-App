@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+  <h2>{{ capsule.title }}</h2>
+
+  {% if capsule.can_be_opened %}
+      <p>{{ capsule.message }}</p>
+      {% if capsule.file %}
+        <p><a href="{{ capsule.file.url }}">Download File</a></p>
+      {% endif %}
+  {% else %}
+      <div style="filter: blur(5px); color: gray;">
+          <p>🔒 Locked until {{ capsule.release_date }}</p>
+          <p>Content hidden</p>
+      </div>
+  {% endif %}
+
+  <p>
+    {% if capsule.is_public %}
+      🌍 Public
+    {% else %}
+      🔒 Private
+    {% endif %}
+  </p>
+
+  {% if capsule.owner == user %}
+    <a href="{% url 'capsule:capsule_edit' capsule.pk %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'capsule:capsule_delete' capsule.pk %}" class="btn btn-danger">Delete</a>
+  {% endif %}
+
+</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h2>🌍 Public Capsules</h2>
+  {% if capsules %}
+    <ul class="list-group">
+      {% for capsule in capsules %}
+        <li class="list-group-item">
+          <h5><a href="{% url 'capsule:capsule_share' capsule.share_uuid %}">{{ capsule.title }}</a></h5>
+          <small>By {{ capsule.owner.username }} | Release: {{ capsule.release_date }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No public capsules available.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

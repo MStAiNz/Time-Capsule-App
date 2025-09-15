@@ -1,0 +1,7 @@
+{% if capsule.owner == user %}
+
+  <p><strong>Share Link:</strong> 
+    <a href="{{ capsule.share_link }}">{{ request.build_absolute_uri(capsule.share_link) }}</a>
+  </p>
+  
+{% endif %}

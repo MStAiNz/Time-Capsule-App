@@ -4,8 +4,10 @@ from celery import Celery
 
 # set default Django settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'timer.settings')
-
 app = Celery('timer')
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
+app = Celery("project")
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
