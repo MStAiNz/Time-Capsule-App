@@ -17,7 +17,7 @@ When the time comes, the app automatically releases the capsule to the user (via
 	
 
 ## Tools
-	- Django (or FastAPI) 
+	- Django
 	- Celery + Redis (for scheduled capsule release) 
 	- SQLite (database) 
 	- SQLAlchemy (storage)
