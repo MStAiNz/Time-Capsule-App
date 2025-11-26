@@ -2,6 +2,7 @@
 A web app where users can create digital time capsules (messages, files, images, or notes) that stay locked until a chosen future date.
 When the time comes, the app automatically releases the capsule to the user (via email, dashboard, or shareable link).
 
+
 ## Features
 ### Capsule Creation 
 	- Users write a message or upload files. 
@@ -13,6 +14,7 @@ When the time comes, the app automatically releases the capsule to the user (via
 	- Scheduled tasks (using Django-Celery / FastAPI background tasks). 
 ### User Management 
 	- Registration & login (Django Auth or FastAPI JWT).
+	
 
 ## Tools
 	- Django (or FastAPI) 
